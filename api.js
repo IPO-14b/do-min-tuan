@@ -25,11 +25,11 @@
     function wrapMessageTarget(e) {
 		function n() {
 			array.forEach(r, function(n) {
-				e.removeEventListener(n.name, n.listener)
+				e.removeMessageListener(n.name, n.listener)
 			}), r = []
 		}
 		var r = [];
-		return e.addEventListener = func.decorate(e.addEventListener, function(e, n) {
+		return e.addMessageListener = func.decorate(e.addMessagetListener, function(e, n) {
 			var t = n[0],
 				o = n[1];
 			return e.call(this, t, o);
