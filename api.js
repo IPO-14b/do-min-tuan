@@ -1,5 +1,5 @@
 ﻿kangoLoader.add("api", function(require, exports, module) {
-	function dispatchMessage(e, n) {
+    function dispatchMessage(e, n) {
 		return messageRouter.dispatchMessage(e, n)
 	}
 
