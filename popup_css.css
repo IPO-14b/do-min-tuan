@@ -1,0 +1,29 @@
+ #span {
+  display: block; 
+  height: 0; 
+  padding: 0; 
+  background: transparent; 
+  border-radius: 0; 
+  border: none; 
+  margin: 0; 
+  overflow: visible;
+}
+#translationsPopup {
+  z-index: 999;
+}
+#analytics-iframes { 
+  display: block; 
+  width: 1px; 
+  height: 1px; 
+  visibility: hidden; 
+  overflow: hidden;
+}
+#span div {
+  margin: 0; 
+  box-shadow:0; 
+  border-radius: 0; 
+  padding: 0; 
+  width: auto; 
+  background: transparent; 
+  display: block
+}
