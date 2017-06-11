@@ -1,73 +1,150 @@
-function(t) {
-    function e(r) {
-        if (n[r]) return n[r].exports;
-        var o = n[r] = {
-            exports: {},
-			id: r,
-            loaded: !1
-        };
-        return t[r].call(o.exports, o, o.exports, e), o.loaded = !0, o.exports
+"use_strict";
+(function() {
+
+    var vocabla = {
+        "app_url": "vocabla.com"
     }
-    var n = {};
-	return e.m = t, e.c = n, e.p = "/", e(0)
-    }([function(t, e, n) {
-        function r(t) {
-            return t && t.__esModule ? t : {
-                default: t
-            }
+
+    var readyStateCheckInterval = setInterval(function() {
+        if (document.readyState === "complete") {
+            clearInterval(readyStateCheckInterval);
+            main();
         }
+    }, 10);
 
-    function o() {
-        (0, h.isChrome)() && (setTimeout(function() {
-            return document.documentElement.style.height = "155px"
-        }, 0), setTimeout(function() {
-            document.documentElement.style.height = "156px", document.documentElement.style.width = "359px"
-        }, 280), setTimeout(function() {
-            return document.documentElement.style.width = "360px"
-        }, 310))
-    }
-
-    function i() {
-        ((0, h.isFirefox)() || (0, h.isSafari)()) && (document.documentElement.style.overflow = "hidden", setTimeout(function() {
-            return KangoAPI.resizeWindow(document.documentElement.scrollWidth, Math.min(A, document.documentElement.scrollHeight))
-        }, 0), setTimeout(function() {
-            return KangoAPI.resizeWindow(document.documentElement.scrollWidth, Math.min(A, document.documentElement.scrollHeight))
-        }, 210))
-    }
-	KangoAPI.onReady(function() {
-        var t = d.default.init();
-        v.default.init(t.getInstalled());
-        var e = (0, l.default)(i, 50);
-        (0, a.render)(u.default.h(p.default, {
-            API: t,
-            ApiEvents: {
-                addListener: d.default.addEventListener,
-                removeListener: d.default.removeEventListener
-            },
-            resizeOnUpdate: e,
-            trackEvents: v.default.event.bind(v.default)
-        }), document.body), o()
-    })
-    function s(t) {
-        var e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : "en",
-            n = "en" === e ? "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ru&dt=t" : "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ru&tl=en&dt=t";
-        return (0, x.promisedXhr)(n, {
-            method: "POST",
-            params: {
-                q: encodeURIComponent(t)
+    function main() {
+        var is_page = false;
+        var is_secure = false;
+        if (document.domain == "vocabla.com" || document.domain == "staging.vocabla.com") {
+            is_vocabla_page = true
+        }
+        if (is_page) {
+            if (!document.getElementById('installed')) {
+                var installed = document.createElement('div');
+                installed.setAttribute('id', 'installed');
+                document.body.appendChild(installed);
             }
-        }).then(l, f)
+        } else
+        if (is_secure) {
+            //toDo
+        } else {
+            var plugin_box = document.createElement('span');
+            plugin_box.setAttribute('id', 'span');
 
-        f = "en" === "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ru&dt=t" : "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ru&tl=en&dt=t";
-        return (0, x.promisedXhr)(n, {
-            method: "GET",
-            params: {
-                q: encodeURIComponent(t)
+            var plugin_translationsPopup = document.createElement('div')
+            plugin_translationsPopup.setAttribute('id', 'translationsPopup')
+            plugin_box.appendChild(plugin_translationsPopup);
+
+            var plugin_box_analytics = document.createElement('div')
+            plugin_box_analytics.setAttribute('id', 'analytics-iframes')
+            plugin_box.appendChild(plugin_box_analytics);
+
+            document.body.appendChild(plugin_box);
+
+            function findParentById(elem, id) {
+                var testObj = elem.parentNode;
+                while (testObj && testObj.parentNode && testObj.nodeName != "BODY" && testObj.nodeName != 'HTML' && testObj.getAttribute("id") != id) {
+                    if (testObj.parentNode.nodeName == "BODY")
+                        break;
+                    testObj = testObj.parentNode;
+                }
+                if (testObj.getAttribute("id") == id)
+                    return testObj;
+                else
+                    return null;
             }
-        });
-    }
 
-    function show(f) {
-        h.showPopUp(f);
-    }
-}]);
+            function addAnalyticsIframe(css_class, href) {
+                var new_iframe = document.createElement('iframe');
+                new_iframe.setAttribute("class", css_class);
+                new_iframe.setAttribute("src", href);
+                var to_remove = document.getElementById("analytics-iframes").getElementsByClassName(css_class);
+                var to_remove_length = to_remove.length;
+                for (var i = to_remove_length - 1; i >= 0; i--) {
+                    document.getElementById("analytics-iframes").removeChild(to_remove[i]);
+                }
+                document.getElementById("analytics-iframes").appendChild(new_iframe);
+            }
+
+            document.body.onclick = function(e) {
+                if (e.target.getAttribute("id") != "translationsPopup" && !findParentById(e.target, 'translationsPopup'))
+                    document.getElementById('translationsPopup').style.display = "none";
+            };
+
+            function getSelectionText() {
+                var html = "";
+                if (typeof window.getSelection != "undefined") {
+                    var sel = window.getSelection();
+                    if (sel.rangeCount) {
+                        var container = document.createElement("div");
+                        for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+                            container.appendChild(sel.getRangeAt(i).cloneContents());
+                        }
+                        html = container.textContent;
+                    }
+                } else if (typeof document.selection != "undefined") {
+                    if (document.selection.type == "Text") {
+                        html = document.selection.createRange().htmlText;
+                    }
+                }
+                return html;
+            }
+
+            function bindDblclickHandler() {
+                document.body.ondblclick = function(e) {
+                    e.preventDefault();
+
+                    addAnalyticsIframe("loaded", "http://" + vocabla.app_url + "/plugin/stats/doubleclick.html");
+
+                    var selection = getSelectionText();
+                    var word = selection.replace(/^\s+|\s+$/g, "");
+                    var query_params = "value=" + word;
+
+                    var word_lang = "en";
+                    var def_lang = "ru";
+                    var browser_lang = (navigator.language) ? navigator.language : navigator.userLanguage;
+
+                    query_params += "&words_language=" + word_lang + "&definitions_language=" + def_lang;
+
+                    if (word.length > 0 && word.match(/^\w.*$/) && word.match(/^[\'\-\w\s]*$/)) {
+                        var getUrl = 'https://' + vocabla.app_url + '/plugin/words/search.html?' + query_params;
+                        var iframe = document.createElement('iframe');
+                        iframe.style.width = '254px';
+                        iframe.style.height = '154px';
+                        iframe.style.border = 'none';
+                        iframe.style.zIndex = 1500;
+                        iframe.id = "TranslateIframe";
+                        iframe.src = getUrl;
+                        document.getElementById("translationsPopup").innerHTML = "";
+                        document.getElementById("translationsPopup").appendChild(iframe);
+
+                        document.getElementById("translationsPopup").style.display = "block";
+
+                        setPopupPosition(e.pageY, e.pageX);
+                    }
+                }
+            }
+
+
+            function setPopupPosition(positiony, positionx) {
+                var top_pos = positiony + 15;
+                var left_pos = positionx - 30;
+
+                var div_width = 330;
+                var window_width = document.body.clientWidth;
+
+                if (left_pos + div_width > window_width)
+                    left_pos = window_width - div_width - 30;
+
+                if (left_pos < 0)
+                    left_pos = 10;
+                document.getElementById('translationsPopup').style.position = 'absolute';
+                document.getElementById('translationsPopup').style.top = top_pos + 'px';
+                document.getElementById('translationsPopup').style.left = left_pos + 'px';
+            }
+
+            bindDblclickHandler();
+        }
+    } //end main()
+
+})();
