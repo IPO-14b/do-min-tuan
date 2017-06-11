@@ -1,0 +1,32 @@
+{
+    "background": {
+        "scripts": ["background.js", "notifications.js"]
+    },
+    "browser_action": {
+        "default_icon": "images/16x16.png",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [{
+        "css": ["page_css.css"],
+        "js": ["autostart.js"],
+        "matches": ["http://*/*", "https://*/*"],
+        "run_at": "document_end"
+    }],
+    "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
+    "default_locale": "en",
+    "description": "__MSG_application_description__",
+    "icons": {
+        "128": "images/128x128.jpg",
+        "16": "images/16x16.png",
+        "48": "images/48x48.jpg"
+    },
+    "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCwwZyf979JOINF2GggBuqUW/C1VIkJE18Jd1O8s4tYbKtymigA+I2+7zkJk4AgQMZF0l5CwS1hERvzzdJ43xTSnPgZtXWPp4L/TA0wttjDwVb1bi2z4f6aeCCKIqwqV6qDO8soXSdOi5HYpZdoCK638TmX9r/p67hnksKWBMG9uwIDAQAB",
+    "manifest_version": 2,
+    "name": "__MSG_application_title__",
+    "options_page": "options.html",
+    "permissions": ["notifications", "idle", "storage", "tabs", "cookies", "http://*/*", "https://*/*"],
+    "short_name": "Vocabla Dictionary",
+    "update_url": "https://clients2.google.com/service/update2/crx",
+    "version": "2.2.2",
+    "web_accessible_resources": ["page_script.js", "page_css.css"]
+}
