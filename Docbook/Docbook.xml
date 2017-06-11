@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- This document was created with Syntext Serna Free. -->
+<!DOCTYPE appendix PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "docbookV4.5/docbookx.dtd" []>
+<appendix>
+  <article>
+  <info>
+    <title>dmt Translater</title>
+  </info>
+  <para>(браузерное расширение)</para>
+  <para>Использован jQuery и внешний API для перевода</para>
+  <section>
+    <title>Пример 1: Отображение попапа возле курсора</title>
+    <para>Задаем координаты чуть ниже курсора</para>
+    <para>Задаем координаты чуть левее курсора</para>
+    <para>Получаем ширину экрана для обратки ситуации, когда курсор находится близко к краю экрана</para>
+    <programlisting> 
+    var top_pos = positiony + 15;
+    var left_pos = positionx - 30;
+    var div_width = 330;
+	var window_width = document.body.clientWidth;
+
+	if (left_pos + div_width > window_width)
+		left_pos = window_width - div_width - 30;
+	if (left_pos < 0)
+		left_pos = 10;
+	document.getElementById('translationsPopup').style.position = 'absolute';
+	document.getElementById('translationsPopup').style.top = top_pos + 'px';
+	document.getElementById('translationsPopup').style.left = left_pos + 'px';
+    </programlisting>
+  </section>
+  <section>
+    <title>Пример 2: Получение перевода слова с помощью внешнего API</title>
+    <para></para>
+    <para>Инициализируем параметры запроса с "value" + слово, которое требует перевода</para>
+    <para>Задаем язык слова требущего перевода и язык, на который слово будет переводиться</para>
+    <para>Добавляем в параметрам запроса параметры языка переводов en-ru</para>
+    <para>Получаем данные запроса</para>
+    <programlisting> 
+    var query_params = "value=" + word;
+	var word_lang = "en";
+	var def_lang = "ru";
+	query_params += "&words_language=" + word_lang + "&definitions_language=" + def_lang;
+	var getUrl = 'https://' + vocabla.app_url + '/plugin/words/search.html?' + query_params;
+    </programlisting>
+  </section>
+  <section>
+    <title>Пример 3: Отображение попапа с переводом</title>
+    <para>Создаем фрейм</para>
+    <para>Задаем параметры фрейма</para>
+    <para>Задаем полученный раннее ответ от внешнего ресурса</para>
+    <para>Отображаем фрейм с ответом от ресурса</para>
+    <programlisting> 
+    var iframe = document.createElement('iframe');
+	iframe.style.width = '254px';
+	iframe.style.height = '154px';
+	iframe.style.border = 'none';
+	iframe.style.zIndex = 1500;
+	iframe.id = "TranslateIframe";
+	iframe.src = getUrl;
+	document.getElementById("translationsPopup").innerHTML = "";
+	document.getElementById("translationsPopup").appendChild(iframe);
+	document.getElementById("translationsPopup").style.display = "block";
+	setPopupPosition(e.pageY, e.pageX);
+    </programlisting>
+  </section>
+</article>
+</appendix>
