@@ -1,21 +1,21 @@
 "use_strict";
 (function() {
 
-   /**
-    *
-    *Урл внешнего сервиса
-    *
-    *@var object $vocabla
-    */
+    /**
+     *
+     *Урл внешнего сервиса
+     *
+     *@var object $vocabla
+     */
     var vocabla = {
         "app_url": "vocabla.com"
     }
 
-   /**
-    *
-    *Задание интервала, при котором в равные промежутки
-    *времени будет выполняться код
-    */
+    /**
+     *
+     *Задание интервала, при котором в равные промежутки
+     *времени будет выполняться код
+     */
     var readyStateCheckInterval = setInterval(function() {
         if (document.readyState === "complete") {
             clearInterval(readyStateCheckInterval);
@@ -23,11 +23,11 @@
         }
     }, 10);
 
-   /**
-    *
-    *Главная функция, в которой производятся действия
-    *
-    */
+    /**
+     *
+     *Главная функция, в которой производятся действия
+     *
+     */
     function main() {
         var is_page = false;
         if (document.domain == "vocabla.com" || document.domain == "staging.vocabla.com") {
@@ -72,12 +72,12 @@
             };
 
 
-           /**
-		    *
-		    *Получение выделенного текста
-		    *
-		    *@return string $html
-		    */
+            /**
+             *
+             *Получение выделенного текста
+             *
+             *@return string $html
+             */
             function getSelectionText() {
                 var html = "";
                 if (typeof window.getSelection != "undefined") {
@@ -97,65 +97,65 @@
                 return html;
             }
 
-           /**
-		    *
-		    *Обработка двойного клика
-		    *и получение перевода слова с внешнего ресура
-		    *
-		    */
+            /**
+             *
+             *Обработка двойного клика
+             *и получение перевода слова с внешнего ресура
+             *
+             */
             function bindDblclickHandler() {
                 document.body.ondblclick = function(e) {
                     e.preventDefault();
 
-                   /**
-				    *Полученный текст из вызванной функции getSelectionText()
-				    *
-				    *@var string $selection
-				    */
+                    /**
+                     *Полученный текст из вызванной функции getSelectionText()
+                     *
+                     *@var string $selection
+                     */
                     var selection = getSelectionText();
 
-                   /**
-				    *Полученное слово путем удаления пробелов
-				    *
-				    *@var string $word
-				    */                    
+                    /**
+                     *Полученное слово путем удаления пробелов
+                     *
+                     *@var string $word
+                     */
                     var word = selection.replace(/^\s+|\s+$/g, "");
 
                     /**
-				    *Параметр value запроса к внешнему ресурсу
-				    *
-				    *@var string $query_params
-				    */  
+                     *Параметр value запроса к внешнему ресурсу
+                     *
+                     *@var string $query_params
+                     */
                     var query_params = "value=" + word;
 
-					/**
-				    *Язык, с которого идет перевод
-				    *
-				    *@var string $word_lang
-				    */  
+                    /**
+                     *Язык, с которого идет перевод
+                     *
+                     *@var string $word_lang
+                     */
                     var word_lang = "en";
 
-					/**
-				    *Язык, на которое будет переведено слово
-				    *
-				    *@var string $def_lang
-				    */  
+                    /**
+                     *Язык, на которое будет переведено слово
+                     *
+                     *@var string $def_lang
+                     */
                     var def_lang = "ru";
 
                     /**
-				    *Параметры value, words_language, definitions_language запроса к внешнему ресурсу
-				    *
-				    *@var string $query_params
-				    */  
+                     *Параметры value, words_language, definitions_language запроса к внешнему ресурсу
+                     *
+                     *@var string $query_params
+                     */
                     query_params += "&words_language=" + word_lang + "&definitions_language=" + def_lang;
 
                     if (word.length > 0 && word.match(/^\w.*$/) && word.match(/^[\'\-\w\s]*$/)) {
 
-                    	/**
-				    	*Результат запроса
-				    	*
-				    	*@var object $query_params
-				    	*/  
+                        /**
+                         *Результат запроса
+                         *
+                         *@var object $query_params
+                         */
                         var getUrl = 'https://' + vocabla.app_url + '/plugin/words/search.html?' + query_params;
                         var iframe = document.createElement('iframe');
                         iframe.style.width = '254px';
@@ -175,38 +175,38 @@
             }
 
 
-           /**
-		    *
-		    *Задание координат для отображения попапа
-		    */
+            /**
+             *
+             *Задание координат для отображения попапа
+             */
             function setPopupPosition(positiony, positionx) {
-           
-           	   /**
-		    	*Координата Y попапа
-		    	*
-		    	*@var integer &top_pos
-		    	*/
+
+                /**
+                 *Координата Y попапа
+                 *
+                 *@var integer &top_pos
+                 */
                 var top_pos = positiony + 15;
 
-               /**
-		    	*Координата X попапа
-		    	*
-		    	*@var integer &top_pos
-		    	*/
+                /**
+                 *Координата X попапа
+                 *
+                 *@var integer &top_pos
+                 */
                 var left_pos = positionx - 30;
 
-               /**
-		    	*Ширина дива
-		    	*
-		    	*@var integer &div_width
-		    	*/
+                /**
+                 *Ширина дива
+                 *
+                 *@var integer &div_width
+                 */
                 var div_width = 330;
 
-               /**
-		    	*Ширина окна браузера
-		    	*
-		    	*@var integer &window_width
-		    	*/
+                /**
+                 *Ширина окна браузера
+                 *
+                 *@var integer &window_width
+                 */
                 var window_width = document.body.clientWidth;
 
                 if (left_pos + div_width > window_width)
