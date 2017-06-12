@@ -42,7 +42,7 @@ function isNowTestTime() {
 function setLingoletTestTime(new_time) {
     var test_date = new Date(parseInt(localStorage["test_time"]));
     if (new Date(parseInt(new_time)) > test_date) {
-        localStorage["test_time"] = new_time
+        localStorage["test_time"] = new_time;
     }
 }
 
