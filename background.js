@@ -1,11 +1,15 @@
-if (!localStorage.hasOwnProperty("first-run"))
+if (!localStorage.hasOwnProperty("first-run")) {
     localStorage["first-run"] = "true";
-if (!localStorage.hasOwnProperty("status"))
+}
+if (!localStorage.hasOwnProperty("status")) {
     localStorage["status"] = "on";
-if (!localStorage.hasOwnProperty("test_time"))
+}
+if (!localStorage.hasOwnProperty("test_time")){
     localStorage["test_time"] = "" + new Date().getTime();
-if (!localStorage.hasOwnProperty("test_hour"))
+}
+if (!localStorage.hasOwnProperty("test_hour")) {
     localStorage["test_hour"] = "20";
+}
 localStorage["last_hosts_0"] = "0";
 localStorage["last_hosts_1"] = "1";
 
@@ -28,16 +32,18 @@ function isNowTestTime() {
         return false;
     }
     var test_date = new Date(parseInt(localStorage["test_time"]));
-    if (new Date() > test_date)
+    if (new Date() > test_date) {
         return true;
-    else
+    } else {
         return false;
+    }
 }
 
 function setLingoletTestTime(new_time) {
     var test_date = new Date(parseInt(localStorage["test_time"]));
-    if (new Date(parseInt(new_time)) > test_date)
+    if (new Date(parseInt(new_time)) > test_date) {
         localStorage["test_time"] = new_time
+    }
 }
 
 is_test_notification_showed = false;
@@ -62,10 +68,10 @@ setInterval(function() {
         test_notification = chrome.notifications.create("testNotify", opt, testNotificationCallback);
         is_test_notification_showed = true;
     }
-}, 1000)
+}, 1000);
 
 function testNotificationCallback(id) {
-
+    //toDo
 }
 
 function testNotificationOnClose(id) {
@@ -75,8 +81,9 @@ function testNotificationOnClose(id) {
         d.setSeconds(0, 0);
         d.setMinutes(0);
         d.setHours(h);
-        if (new Date() > d)
+        if (new Date() > d) {
             d.setHours(24 + h);
+        }
         var new_time = "" + d.getTime();
 
         setLingoletTestTime(new_time);
