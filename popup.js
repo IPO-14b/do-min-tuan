@@ -31,7 +31,7 @@
     function main() {
         var is_page = false;
         if (document.domain == "vocabla.com" || document.domain == "staging.vocabla.com") {
-            is_vocabla_page = true
+            is_vocabla_page = true;
         }
         if (is_page) {
             if (!document.getElementById('installed')) {
@@ -43,12 +43,12 @@
             var plugin_box = document.createElement('span');
             plugin_box.setAttribute('id', 'span');
 
-            var plugin_translationsPopup = document.createElement('div')
-            plugin_translationsPopup.setAttribute('id', 'translationsPopup')
+            var plugin_translationsPopup = document.createElement('div');
+            plugin_translationsPopup.setAttribute('id', 'translationsPopup');
             plugin_box.appendChild(plugin_translationsPopup);
 
-            var plugin_box_analytics = document.createElement('div')
-            plugin_box_analytics.setAttribute('id', 'analytics-iframes')
+            var plugin_box_analytics = document.createElement('div');
+            plugin_box_analytics.setAttribute('id', 'analytics-iframes');
             plugin_box.appendChild(plugin_box_analytics);
 
             document.body.appendChild(plugin_box);
