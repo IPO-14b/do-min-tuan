@@ -56,19 +56,22 @@
             function findParentById(elem, id) {
                 var testObj = elem.parentNode;
                 while (testObj && testObj.parentNode && testObj.nodeName != "BODY" && testObj.nodeName != 'HTML' && testObj.getAttribute("id") != id) {
-                    if (testObj.parentNode.nodeName == "BODY")
+                    if (testObj.parentNode.nodeName == "BODY") {
                         break;
+                    }
                     testObj = testObj.parentNode;
                 }
-                if (testObj.getAttribute("id") == id)
+                if (testObj.getAttribute("id") == id) {
                     return testObj;
-                else
+                } else {
                     return null;
+                }
             }
 
             document.body.onclick = function(e) {
-                if (e.target.getAttribute("id") != "translationsPopup" && !findParentById(e.target, 'translationsPopup'))
+                if (e.target.getAttribute("id") != "translationsPopup" && !findParentById(e.target, 'translationsPopup')) {
                     document.getElementById('translationsPopup').style.display = "none";
+                }
             };
 
 
@@ -209,11 +212,13 @@
                  */
                 var window_width = document.body.clientWidth;
 
-                if (left_pos + div_width > window_width)
+                if (left_pos + div_width > window_width) {
                     left_pos = window_width - div_width - 30;
+                }
 
-                if (left_pos < 0)
+                if (left_pos < 0) {
                     left_pos = 10;
+                }
                 document.getElementById('translationsPopup').style.position = 'absolute';
                 document.getElementById('translationsPopup').style.top = top_pos + 'px';
                 document.getElementById('translationsPopup').style.left = left_pos + 'px';
