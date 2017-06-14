@@ -47,8 +47,6 @@
             plugin_translationsPopup.setAttribute('id', 'translationsPopup');
             plugin_box.appendChild(plugin_translationsPopup);
 
-            plugin_box.appendChild(plugin_box_analytics);
-
             document.body.appendChild(plugin_box);
 
             function findParentById(elem, id) {
