@@ -157,7 +157,8 @@
                          *
                          *@var object $query_params
                          */
-                        var getUrl = 'https://' + vocabla.app_url + '/plugin/words/search.html?' + query_params;
+
+                        
                         var iframe = document.createElement('iframe');
                         iframe.style.width = '254px';
                         iframe.style.height = '154px';
