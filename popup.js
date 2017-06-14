@@ -47,8 +47,6 @@
             plugin_translationsPopup.setAttribute('id', 'translationsPopup');
             plugin_box.appendChild(plugin_translationsPopup);
 
-            var plugin_box_analytics = document.createElement('div');
-            plugin_box_analytics.setAttribute('id', 'analytics-iframes');
             plugin_box.appendChild(plugin_box_analytics);
 
             document.body.appendChild(plugin_box);
