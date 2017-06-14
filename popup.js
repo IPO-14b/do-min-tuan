@@ -158,7 +158,7 @@
                          *@var object $query_params
                          */
 
-                        
+                        var getUrl = 'https://dictionary.skyeng.ru' + '/api/public/v1/words/search/search?' + word;
                         var iframe = document.createElement('iframe');
                         iframe.style.width = '254px';
                         iframe.style.height = '154px';
